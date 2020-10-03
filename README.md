@@ -1,4 +1,4 @@
-# front
+# BMFront
 
 ## Project setup
 ```
