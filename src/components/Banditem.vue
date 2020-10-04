@@ -1,12 +1,12 @@
 <template>
-  <div class="banditem">
-    <a>
-      <figure class="image is-128x128">
+  <div class="kys">
+    <a class="banditem" @click="openDetails">
+      <div class="img-col">
         <img
           src="https://www.metal-archives.com/images/3/0/4/0/30403_logo.jpg"
         />
-      </figure>
-      <h4>Goatmoon</h4>
+      </div>
+      <div class="text-col"><h1>Goatmoon</h1></div>
     </a>
   </div>
 </template>
@@ -14,14 +14,40 @@
 <script lang="ts">
 export default {
   setup() {
-    return {};
+    const openDetails = () => {
+      alert("kys");
+    };
+    return { openDetails };
   }
 };
 </script>
 
 <style scoped>
+.kys {
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
 .banditem {
   display: flex;
-  flex-flow: row;
+  align-items: center;
+  margin-top: 1vh;
+}
+.banditem > div {
+  flex-basis: 45%;
+}
+h1 {
+  font-size: 25px;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: 60px;
+}
+a {
+  color: white;
+}
+a:hover {
+  color: black;
+  background: white;
 }
 </style>

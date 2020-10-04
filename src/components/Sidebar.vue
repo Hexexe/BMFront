@@ -7,7 +7,7 @@
     <div class="block">
       <p>Fun fact: Kys</p>
       <p>Another fun fact: No fun allowed</p>
-      <p>Final fun fact:</p>
+      <p>Final fun fact: https://youtu.be/wHrAwtMjTTk?t=105</p>
     </div>
     <div class="search">
       <p class="control has-icons-left">
@@ -17,8 +17,8 @@
         </span>
       </p>
     </div>
-    <div v-for="i in 20" :key="i">
-      <Banditem />
+    <div class="banditems">
+      <Banditem v-for="i in 20" :key="i" />
     </div>
   </div>
 </template>
@@ -47,9 +47,9 @@ export default {
 <style scoped>
 .endMyLife {
   position: fixed;
-  height: 100%;
+  height: 100vh;
   width: 20vw;
-  opacity: 0.6;
+  opacity: 0.8;
   top: 0;
   left: 0;
   z-index: 2;
@@ -58,12 +58,13 @@ export default {
   transition: all 0.3s ease;
   -webkit-transform: translateX(-20vw);
   transform: translateX(-20vw);
+  overflow: auto;
 }
 .endMyLifeActive {
   position: fixed;
-  height: 100%;
+  height: 100vh;
   width: 20vw;
-  opacity: 0.6;
+  opacity: 0.8;
   top: 0;
   left: 0;
   z-index: 2;
@@ -72,6 +73,7 @@ export default {
   transition: all 0.3s ease;
   -webkit-transform: translateX(0vw);
   transform: translateX(0vw);
+  overflow: auto;
 }
 
 .head {
@@ -79,6 +81,8 @@ export default {
   flex-direction: column;
   font-size: 30px;
   text-align: center;
+  color: white;
+  opacity: 0.9;
 }
 .head a {
   font-size: 35px;
@@ -98,8 +102,9 @@ export default {
   text-align: center;
 }
 .search {
-  margin-top: 5px;
+  margin-top: 2vh;
   margin-left: 1vw;
   margin-right: 1vw;
+  margin-bottom: 2vh;
 }
 </style>
