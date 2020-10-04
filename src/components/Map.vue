@@ -57,7 +57,7 @@ export default {
       active.value = true;
       const layer = e.target;
       layer.setStyle({
-        fillColor: "#ffffff", //fill color (obv)
+        fillColor: "#ffffff",
         color: "#ffffff",
         dashArray: "",
         fillOpacity: 0.25
@@ -78,7 +78,7 @@ export default {
         maxBounds: bounds.value,
         maxBoundsViscosity: 1.0,
         zoomControl: false
-      }).setView(L.latLng(60.15568, 24.95535), 13);
+      }).setView(L.latLng(60.15568, 24.95535), 8);
       L.control.zoom({ position: "bottomright" }).addTo(mapDiv.value);
       L.tileLayer(
         "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png", // tileset
