@@ -5,13 +5,11 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
 import Map from "@/components/Map.vue";
-
-@Options({
+export default {
   components: {
     Map
   }
-})
-export default class Home extends Vue {}
+};
 </script>
+<style scoped></style>
