@@ -1,11 +1,12 @@
 <template>
-  <div class="modal">
-    <a class="panel-block is-active">
-      <figure></figure>
-      <span class="panel-icon">
-        <i class="fas fa-book" aria-hidden="true"></i>
-      </span>
-      Goatmoon
+  <div class="banditem">
+    <a>
+      <figure class="image is-128x128">
+        <img
+          src="https://www.metal-archives.com/images/3/0/4/0/30403_logo.jpg"
+        />
+      </figure>
+      <h4>Goatmoon</h4>
     </a>
   </div>
 </template>
@@ -18,4 +19,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.banditem {
+  display: flex;
+  flex-flow: row;
+}
+</style>
