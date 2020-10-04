@@ -12,6 +12,7 @@ import L from "leaflet";
 import borderData from "@/assets/geoLow.json";
 import { ref, onMounted } from "vue";
 import Sidebar from "@/components/Sidebar.vue";
+import { getTopArtistsByTag } from "../metal_api";
 
 export default {
   components: { Sidebar },
@@ -52,6 +53,8 @@ export default {
     };
 
     const zoomToFeature = (e: any) => {
+      //const countryCode = e.target.feature.properties.iso_a2;
+      getTopArtistsByTag("metalcore");
       geojson.value.resetStyle();
       mapDiv.value.fitBounds(e.target.getBounds());
       active.value = true;
