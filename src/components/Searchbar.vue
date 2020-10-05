@@ -11,11 +11,14 @@
 
 <script lang="ts">
 import {ref} from 'vue'
+
 export default {
    setup(){
-     const kappa = ref("")
+     const kappa = ref("");
+
 
     function search(){
+
        if(kappa.value.length>=3) console.log(kappa.value)
     }
 

@@ -13,7 +13,7 @@
       <Searchbar></Searchbar>
     </div>
     <div class="banditems">
-      <Banditem v-for="i in 20" :key="i" />
+      <Banditem  v-for="i in bands" :key="i"  />
     </div>
   </div>
 </template>
@@ -33,10 +33,14 @@ export default {
     }
   },
   setup(props: any, { emit }: any) {
+    const bands: {id: number,link: string, name: string, country: string, genre:string, status: string} [] =[
+      {"id": 0,"link":"https://www.metal-archives.com/bands/0/3540384774","name":"0","country":"Iceland","genre":"Depressive Black/Doom Metal","status":"Active" },
+      {"id":1,"link":"https://www.metal-archives.com/bands/0_X_%C3%AD_S_T/3540304450","name":"0 X Ã­ S T","country":"Finland","genre":"Blackened Doom Metal","status":"Split-up"}
+    ];
     function close() {
       emit("side-active", EventSource);
     }
-    return { close };
+    return { close,bands };
   }
 };
 </script>
