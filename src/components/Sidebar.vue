@@ -10,12 +10,7 @@
       <p>Final fun fact: https://youtu.be/wHrAwtMjTTk?t=105</p>
     </div>
     <div class="search">
-      <p class="control has-icons-left">
-        <input class="input" type="text" placeholder="Search" />
-        <span class="icon is-left">
-          <i class="fas fa-search" aria-hidden="true" />
-        </span>
-      </p>
+      <Searchbar></Searchbar>
     </div>
     <div class="banditems">
       <Banditem v-for="i in 20" :key="i" />
@@ -25,9 +20,11 @@
 
 <script lang="ts">
 import Banditem from "@/components/Banditem.vue";
+import Searchbar from "@/components/Searchbar.vue";
 export default {
   components: {
-    Banditem
+    Banditem,
+    Searchbar
   },
   emits: ["side-active"],
   props: {
