@@ -29,7 +29,8 @@
 <script lang="ts">
 import Banditem from "@/components/Banditem.vue";
 
-import {ref} from "vue";
+import {ref,reactive,computed} from "vue";
+
 export default {
   components: {
     Banditem,
@@ -45,7 +46,6 @@ export default {
 
   setup(props: any, { emit }: any) {
     const kappa = ref("");
-
     const bands: {id: number,link: string, name: string, country: string, genre:string, status: string} [] =[
       {
         "id": 0,
@@ -440,7 +440,7 @@ export default {
         "status": "Split-up"
       }
     ];
-    const filteredBands: {id: number,link: string, name: string, country: string, genre:string, status: string} [] = [];
+    const filteredBands: {id: number,link: string, name: string, country: string, genre:string, status: string} [] = reactive([]);
     function search(){
       filteredBands.splice(0,filteredBands.length)
             bands.filter(b => {
@@ -448,7 +448,6 @@ export default {
                 filteredBands.push(b)
               }
             });
-      console.log(filteredBands)
       return filteredBands;
     }
     function close() {
