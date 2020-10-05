@@ -23,8 +23,11 @@
         </span>
       </p>
     </div>
-    <div class="banditems">
+    <div class="banditems" v-if="filteredBands.length == 0">
       <Banditem v-for="band in bands" :key="band.id" :band="band" />
+    </div>
+    <div class="banditems" v-if="filteredBands.length != 0">
+      <Banditem v-for="band in filteredBands" :key="band.id" :band="band" />
     </div>
   </div>
 </template>
@@ -32,7 +35,7 @@
 <script lang="ts">
 import Banditem from "@/components/Banditem.vue";
 
-import { ref } from "vue";
+import { ref, reactive, computed } from "vue";
 export default {
   components: {
     Banditem
@@ -422,20 +425,28 @@ export default {
         status: "Split-up"
       }
     ];
+    const filteredBands: {
+      id: number;
+      link: string;
+      name: string;
+      country: string;
+      genre: string;
+      status: string;
+    }[] = reactive([]);
     function search() {
-      for (const band of bands) {
-        if (kappa.value == band.name) {
-          console.log(band);
+      filteredBands.splice(0, filteredBands.length);
+      bands.filter(b => {
+        if (b.name.toLowerCase().match(kappa.value.toLowerCase())) {
+          filteredBands.push(b);
         }
-      }
-    }
-    function updateBands(band: any) {
-      console.log(band);
+      });
+      console.log(filteredBands);
+      return filteredBands;
     }
     function close() {
       emit("side-active", EventSource);
     }
-    return { close, bands, kappa, search };
+    return { close, bands, kappa, search, filteredBands };
   }
 };
 </script>
