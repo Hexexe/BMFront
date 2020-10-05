@@ -23,6 +23,7 @@ export default {
     const eiii = reactive(props.band);
     const openDetails = () => {
       const kys = eiii.link.match(/\d+$/);
+      console.log(kys);
     };
     return { openDetails };
   }
