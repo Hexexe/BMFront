@@ -10,7 +10,12 @@
       <p>Final fun fact: https://youtu.be/wHrAwtMjTTk?t=105</p>
     </div>
     <div class="search">
-      <Searchbar></Searchbar>
+      <p class="control has-icons-left">
+        <input v-model="kappa" class="input" type="text" placeholder="Search" @keyup="search"/>
+        <span class="icon is-left">
+          <i class="fas fa-search" aria-hidden="true" />
+        </span>
+      </p>
     </div>
     <div class="banditems">
       <Banditem  v-for="band in bands" :key="band.id" :band="band" />
@@ -20,11 +25,12 @@
 
 <script lang="ts">
 import Banditem from "@/components/Banditem.vue";
-import Searchbar from "@/components/Searchbar.vue";
+
+import {ref} from "vue";
 export default {
   components: {
     Banditem,
-    Searchbar
+
   },
   emits: ["side-active"],
   props: {
@@ -33,7 +39,10 @@ export default {
     },
 
   },
+
   setup(props: any, { emit }: any) {
+    const kappa = ref("");
+
     const bands: {id: number,link: string, name: string, country: string, genre:string, status: string} [] =[
       {
         "id": 0,
@@ -428,10 +437,22 @@ export default {
         "status": "Split-up"
       }
     ];
+    function search(){
+        for(const band of bands){
+          if(kappa.value == band.name){
+
+
+          }
+
+      }
+    }
+    function updateBands(band:any){
+
+    }
     function close() {
       emit("side-active", EventSource);
     }
-    return { close,bands };
+    return { close,bands,kappa,search };
   }
 };
 </script>
