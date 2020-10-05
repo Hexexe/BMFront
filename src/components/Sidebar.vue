@@ -5,7 +5,7 @@
       <h2>FINLAND</h2>
     </div>
     <div class="block">
-      <p>Fun fact: Kys</p>
+      <p >Fun fact: {{population}}</p>
       <p>Another fun fact: No fun allowed</p>
       <p>Final fun fact: https://youtu.be/wHrAwtMjTTk?t=105</p>
     </div>
@@ -41,6 +41,9 @@ export default {
     active: {
       type: Boolean
     },
+    population: {
+      type: Number
+    }
 
 
   },
@@ -447,14 +450,11 @@ export default {
     ];
     const filteredBands: {id: number,link: string, name: string, country: string, genre:string, status: string} [] = reactive([]);
     function search(){
-      if(searchText.value.length>0){
-        state.haettu = true;
-      }else(state.haettu = false)
+      state.haettu = searchText.value.length > 0 ? true: false
       filteredBands.splice(0,filteredBands.length)
             bands.filter(b => {
               if(b.name.toLowerCase().match(searchText.value.toLowerCase())){
                 filteredBands.push(b)
-
               }
             });
       return filteredBands;
