@@ -2,10 +2,10 @@
   <div :class="active ? 'endMyLifeActive' : 'endMyLife'">
     <div class="head">
       <a @click="close"><i class="fas fa-times"/></a>
-      <h2>FINLAND</h2>
+      <h2>{{country}}</h2>
     </div>
     <div class="block">
-      <p>Fun fact: {{ population }}</p>
+      <p>Population: {{ population }}</p>
       <p>Another fun fact: No fun allowed</p>
       <p>Final fun fact: https://youtu.be/wHrAwtMjTTk?t=105</p>
     </div>
@@ -48,6 +48,9 @@ export default {
     },
     population: {
       type: Number
+    },
+    country: {
+      type: String
     }
   },
 
