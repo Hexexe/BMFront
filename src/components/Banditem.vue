@@ -1,12 +1,12 @@
 <template>
   <div class="kys">
     <a class="banditem" @click="openDetails">
-      <div class="img-col">
+      <div>
         <img
-            src="https://www.metal-archives.com/images/3/0/4/0/30403_logo.jpg"
+          src="https://www.metal-archives.com/images/3/0/4/0/30403_logo.jpg"
         />
       </div>
-      <div class="text-col">
+      <div>
         <h1>{{ band.name }}</h1>
       </div>
     </a>
@@ -14,22 +14,17 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
-import { onMounted } from "vue";
+import { ref, reactive } from "vue";
+//import { onMounted } from "vue";
 
 export default {
   props: ["band"],
   setup(props: any) {
-    let bandName: any = ref("");
-
+    const eiii = reactive(props.band);
     const openDetails = () => {
-      alert(props.band.id);
+      const kys = eiii.link.match(/\d+$/);
     };
-
-    const setName = (name: string) => {
-      bandName = name;
-    };
-    return { openDetails, bandName };
+    return { openDetails };
   }
 };
 </script>
@@ -45,21 +40,27 @@ export default {
   margin-top: 1vh;
 }
 .banditem > div {
-  flex-basis: 45%;
+  flex-basis: 50%;
 }
 h1 {
-  font-size: 25px;
+  font-size: 20px;
+  width: 10vw;
+  text-overflow: ellipsis;
+  word-break: normal;
+  overflow: hidden;
 }
 img {
-  display: block;
-  max-width: 100%;
-  height: 60px;
+  display: flex;
+  max-width: auto;
+  height: auto;
 }
 a {
   color: white;
+  opacity: 0.5;
 }
 a:hover {
   color: black;
   background: white;
+  opacity: 1;
 }
 </style>

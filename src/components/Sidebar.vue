@@ -10,7 +10,18 @@
       <p>Final fun fact: https://youtu.be/wHrAwtMjTTk?t=105</p>
     </div>
     <div class="search">
-      <Searchbar />
+      <p class="control has-icons-left">
+        <input
+          v-model="kappa"
+          class="input"
+          type="text"
+          placeholder="Search"
+          @keyup="search"
+        />
+        <span class="icon is-left">
+          <i class="fas fa-search" aria-hidden="true" />
+        </span>
+      </p>
     </div>
     <div class="banditems">
       <Banditem v-for="band in bands" :key="band.id" :band="band" />
@@ -20,11 +31,11 @@
 
 <script lang="ts">
 import Banditem from "@/components/Banditem.vue";
-import Searchbar from "@/components/Searchbar.vue";
+
+import { ref } from "vue";
 export default {
   components: {
-    Banditem,
-    Searchbar
+    Banditem
   },
   emits: ["side-active"],
   props: {
@@ -32,7 +43,10 @@ export default {
       type: Boolean
     }
   },
+
   setup(props: any, { emit }: any) {
+    const kappa = ref("");
+
     const bands: {
       id: number;
       link: string;
@@ -113,39 +127,6 @@ export default {
         country: "United Kingdom",
         genre: "Death/Thrash Metal",
         status: "Split-up"
-      },
-      {
-        id: 9,
-        link: "https://www.metal-archives.com/bands/10%2C000_Years/3540470669",
-        name: "10.000 Years",
-        country: "Sweden",
-        genre: "Stoner Metal",
-        status: "Active"
-      },
-      {
-        id: 10,
-        link: "https://www.metal-archives.com/bands/10-67_P.D.O.A./88666",
-        name: "10-67 P.D.O.A.",
-        country: "United States",
-        genre: "Heavy Metal",
-        status: "Active"
-      },
-      {
-        id: 11,
-        link:
-          "https://www.metal-archives.com/bands/10.000_km%C2%B2_gegen_die_Zeit/3540395576",
-        name: "10.000 kmÂ² gegen die Zeit",
-        country: "Germany",
-        genre: "Stoner/Doom Metal/Rock",
-        status: "Active"
-      },
-      {
-        id: 12,
-        link: "https://www.metal-archives.com/bands/100_Dogmas/3540447570",
-        name: "100 Dogmas",
-        country: "Brazil",
-        genre: "Groove Metal/Hard Rock",
-        status: "Active"
       },
       {
         id: 13,
@@ -441,11 +422,20 @@ export default {
         status: "Split-up"
       }
     ];
-
+    function search() {
+      for (const band of bands) {
+        if (kappa.value == band.name) {
+          console.log(band);
+        }
+      }
+    }
+    function updateBands(band: any) {
+      console.log(band);
+    }
     function close() {
       emit("side-active", EventSource);
     }
-    return { close, bands };
+    return { close, bands, kappa, search };
   }
 };
 </script>
