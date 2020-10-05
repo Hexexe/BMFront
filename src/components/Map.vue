@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="mapid"></div>
-    <Sidebar :active="active" @side-active="sideActive" />
+    <Sidebar :active="active" :population="population" @side-active="sideActive" />
   </div>
 </template>
 
@@ -21,6 +21,7 @@ export default {
     const mapDiv: any = ref(null);
     const borders: any = ref(borderData); // border data
     const active = ref(false);
+    const population = ref(0);
     const bounds = ref(
       new L.LatLngBounds(new L.LatLng(-60, -181), new L.LatLng(90, 181))
     ); // map bounds
@@ -58,6 +59,8 @@ export default {
       geojson.value.resetStyle();
       mapDiv.value.fitBounds(e.target.getBounds());
       active.value = true;
+      population.value = 1;
+
       const layer = e.target;
       layer.setStyle({
         fillColor: "#ffffff",
@@ -107,7 +110,7 @@ export default {
       initMap();
     });
 
-    return { active, sideActive };
+    return { active, sideActive, population };
   }
 };
 </script>

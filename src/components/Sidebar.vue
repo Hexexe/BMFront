@@ -5,14 +5,14 @@
       <h2>FINLAND</h2>
     </div>
     <div class="block">
-      <p>Fun fact: Kys</p>
+      <p>Fun fact: {{ population }}</p>
       <p>Another fun fact: No fun allowed</p>
       <p>Final fun fact: https://youtu.be/wHrAwtMjTTk?t=105</p>
     </div>
     <div class="search">
       <p class="control has-icons-left">
         <input
-          v-model="kappa"
+          v-model="searchText"
           class="input"
           type="text"
           placeholder="Search"
@@ -23,10 +23,10 @@
         </span>
       </p>
     </div>
-    <div class="banditems" v-if="filteredBands.length == 0">
+    <div class="banditems" v-if="!state.haettu">
       <Banditem v-for="band in bands" :key="band.id" :band="band" />
     </div>
-    <div class="banditems" v-if="filteredBands.length != 0">
+    <div class="banditems" v-if="state.haettu">
       <Banditem v-for="band in filteredBands" :key="band.id" :band="band" />
     </div>
   </div>
@@ -35,7 +35,7 @@
 <script lang="ts">
 import Banditem from "@/components/Banditem.vue";
 
-import { ref, reactive, computed } from "vue";
+import { ref, reactive } from "vue";
 
 export default {
   components: {
@@ -45,11 +45,17 @@ export default {
   props: {
     active: {
       type: Boolean
+    },
+    population: {
+      type: Number
     }
   },
 
   setup(props: any, { emit }: any) {
-    const kappa = ref("");
+    const searchText = ref("");
+    const state = reactive({
+      haettu: false
+    });
     const bands: {
       id: number;
       link: string;
@@ -162,6 +168,23 @@ export default {
         name: "100 Dogmas",
         country: "Brazil",
         genre: "Groove Metal/Hard Rock",
+        status: "Active"
+      },
+      {
+        id: 13,
+        link:
+          "https://www.metal-archives.com/bands/100_Knives_Inside/3540260920",
+        name: "100 Knives Inside",
+        country: "Denmark",
+        genre: "Progressive Death Metal",
+        status: "Split-up"
+      },
+      {
+        id: 14,
+        link: "https://www.metal-archives.com/bands/100_Remords/3540474085",
+        name: "100 Remords",
+        country: "France",
+        genre: "Symphonic Power/Heavy Metal",
         status: "Active"
       },
       {
@@ -451,9 +474,10 @@ export default {
       status: string;
     }[] = reactive([]);
     function search() {
+      state.haettu = searchText.value.length > 0 ? true : false;
       filteredBands.splice(0, filteredBands.length);
       bands.filter(b => {
-        if (b.name.toLowerCase().match(kappa.value.toLowerCase())) {
+        if (b.name.toLowerCase().match(searchText.value.toLowerCase())) {
           filteredBands.push(b);
         }
       });
@@ -462,7 +486,7 @@ export default {
     function close() {
       emit("side-active", EventSource);
     }
-    return { close, bands, kappa, search, filteredBands };
+    return { close, bands, searchText, search, filteredBands, state };
   }
 };
 </script>
