@@ -11,16 +11,16 @@
     </div>
     <div class="search">
       <p class="control has-icons-left">
-        <input v-model="kappa" class="input" type="text" placeholder="Search" @keyup="search"/>
+        <input v-model="searchText" class="input" type="text" placeholder="Search" @keyup="search"/>
         <span class="icon is-left">
           <i class="fas fa-search" aria-hidden="true" />
         </span>
       </p>
     </div>
-    <div class="banditems" v-if="filteredBands.length==0">
+    <div class="banditems" v-if="!state.haettu">
       <Banditem  v-for="band in bands" :key="band.id" :band="band" />
     </div>
-    <div class="banditems" v-if="filteredBands.length!=0">
+    <div class="banditems" v-if="state.haettu">
       <Banditem  v-for="band in filteredBands" :key="band.id" :band="band" />
     </div>
   </div>
@@ -29,7 +29,7 @@
 <script lang="ts">
 import Banditem from "@/components/Banditem.vue";
 
-import {ref,reactive,computed} from "vue";
+import {ref,reactive} from "vue";
 
 export default {
   components: {
@@ -42,10 +42,15 @@ export default {
       type: Boolean
     },
 
+
   },
 
   setup(props: any, { emit }: any) {
-    const kappa = ref("");
+    const searchText = ref("");
+    const state = reactive({
+      haettu: false,
+
+    })
     const bands: {id: number,link: string, name: string, country: string, genre:string, status: string} [] =[
       {
         "id": 0,
@@ -442,10 +447,14 @@ export default {
     ];
     const filteredBands: {id: number,link: string, name: string, country: string, genre:string, status: string} [] = reactive([]);
     function search(){
+      if(searchText.value.length>0){
+        state.haettu = true;
+      }else(state.haettu = false)
       filteredBands.splice(0,filteredBands.length)
             bands.filter(b => {
-              if(b.name.toLowerCase().match(kappa.value.toLowerCase())){
+              if(b.name.toLowerCase().match(searchText.value.toLowerCase())){
                 filteredBands.push(b)
+
               }
             });
       return filteredBands;
@@ -453,7 +462,7 @@ export default {
     function close() {
       emit("side-active", EventSource);
     }
-    return { close,bands,kappa,search,filteredBands};
+    return { close,bands,searchText,search,filteredBands,state};
   }
 };
 </script>
