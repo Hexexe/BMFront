@@ -6,18 +6,32 @@
           src="https://www.metal-archives.com/images/3/0/4/0/30403_logo.jpg"
         />
       </div>
-      <div class="text-col"><h1>Goatmoon</h1></div>
+      <div class="text-col" ><h1>{{bandName}}</h1></div>
     </a>
   </div>
 </template>
 
 <script lang="ts">
+import {ref} from "vue";
+import { onMounted} from 'vue'
 export default {
-  setup() {
+
+
+setup() {
+
+    let bandName: any = ref("");
+
+
     const openDetails = () => {
       alert("kys");
     };
-    return { openDetails };
+
+    const setName = (name: string) => {
+      bandName = name;
+    }
+    return { openDetails,
+    bandName};
+
   }
 };
 </script>
