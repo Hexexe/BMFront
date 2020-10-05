@@ -2,9 +2,7 @@
   <div class="kys">
     <a class="banditem" @click="openDetails">
       <div>
-        <img
-          src="https://www.metal-archives.com/images/3/0/4/0/30403_logo.jpg"
-        />
+        <img :src="imgSrc" />
       </div>
       <div>
         <h1>{{ band.name }}</h1>
@@ -14,18 +12,22 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive } from "vue";
+import { reactive } from "vue";
 //import { onMounted } from "vue";
 
 export default {
   props: ["band"],
   setup(props: any) {
     const eiii = reactive(props.band);
+    const kys = eiii.link.match(/\d+$/).toString();
+    const logo = [...kys].splice(0, 4).join("/") + "/" + kys;
+    const imgSrc = `https://www.metal-archives.com/images/${logo +
+      kys}_logo.jpg`;
+
     const openDetails = () => {
-      const kys = eiii.link.match(/\d+$/);
-      console.log(kys);
+      console.log(eiii.link);
     };
-    return { openDetails };
+    return { openDetails, kys, imgSrc };
   }
 };
 </script>

@@ -36,6 +36,7 @@
 import Banditem from "@/components/Banditem.vue";
 
 import { ref, reactive, computed } from "vue";
+
 export default {
   components: {
     Banditem
@@ -49,7 +50,6 @@ export default {
 
   setup(props: any, { emit }: any) {
     const kappa = ref("");
-
     const bands: {
       id: number;
       link: string;
@@ -132,6 +132,39 @@ export default {
         status: "Split-up"
       },
       {
+        id: 9,
+        link: "https://www.metal-archives.com/bands/10%2C000_Years/3540470669",
+        name: "10.000 Years",
+        country: "Sweden",
+        genre: "Stoner Metal",
+        status: "Active"
+      },
+      {
+        id: 10,
+        link: "https://www.metal-archives.com/bands/10-67_P.D.O.A./88666",
+        name: "10-67 P.D.O.A.",
+        country: "United States",
+        genre: "Heavy Metal",
+        status: "Active"
+      },
+      {
+        id: 11,
+        link:
+          "https://www.metal-archives.com/bands/10.000_km%C2%B2_gegen_die_Zeit/3540395576",
+        name: "10.000 kmÂ² gegen die Zeit",
+        country: "Germany",
+        genre: "Stoner/Doom Metal/Rock",
+        status: "Active"
+      },
+      {
+        id: 12,
+        link: "https://www.metal-archives.com/bands/100_Dogmas/3540447570",
+        name: "100 Dogmas",
+        country: "Brazil",
+        genre: "Groove Metal/Hard Rock",
+        status: "Active"
+      },
+      {
         id: 13,
         link:
           "https://www.metal-archives.com/bands/100_Knives_Inside/3540260920",
@@ -146,22 +179,6 @@ export default {
         name: "100 Remords",
         country: "France",
         genre: "Symphonic Power/Heavy Metal",
-        status: "Active"
-      },
-      {
-        id: 15,
-        link: "https://www.metal-archives.com/bands/100_Slain/3540266645",
-        name: "100 Slain",
-        country: "Spain",
-        genre: "Thrash Metal",
-        status: "Split-up"
-      },
-      {
-        id: 16,
-        link: "https://www.metal-archives.com/bands/100_Suns/87700",
-        name: "100 Suns",
-        country: "United States",
-        genre: "Death Metal",
         status: "Active"
       },
       {
@@ -440,7 +457,6 @@ export default {
           filteredBands.push(b);
         }
       });
-      console.log(filteredBands);
       return filteredBands;
     }
     function close() {
