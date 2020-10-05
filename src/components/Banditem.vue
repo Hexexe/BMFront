@@ -2,7 +2,9 @@
   <div class="kys">
     <a class="banditem" @click="openDetails">
       <div>
-        <img :src="imgSrc" />
+        <img v-if="!showpng" :src="imgSrcJpg" @error="showpng = true" />
+        <img v-if="showpng && !showgif" :src="imgSrcPng" @error="showgif =true" />
+        <img v-if="showgif && !noimage" :src="imgSrcGif" @error="noimage = true" />
       </div>
       <div>
         <h1>{{ band.name }}</h1>
@@ -12,22 +14,27 @@
 </template>
 
 <script lang="ts">
-import { reactive } from "vue";
+import { reactive,ref } from "vue";
 //import { onMounted } from "vue";
 
 export default {
   props: ["band"],
   setup(props: any) {
     const eiii = reactive(props.band);
+    const showpng = ref(false);
+    const showgif = ref(false);
+    const noimage = ref(false);
     const kys = eiii.link.match(/\d+$/).toString();
     const logo = [...kys].splice(0, 4).join("/") + "/" + kys;
-    const imgSrc = `https://www.metal-archives.com/images/${logo +
-      kys}_logo.jpg`;
+    const imgSrcJpg = `https://www.metal-archives.com/images/${logo}_logo.jpg`;
+    const imgSrcPng = `https://www.metal-archives.com/images/${logo}_logo.png`;
+    const imgSrcGif = `https://www.metal-archives.com/images/${logo}_logo.gif`;
 
     const openDetails = () => {
       console.log(eiii.link);
+
     };
-    return { openDetails, kys, imgSrc };
+    return { openDetails, kys, imgSrcJpg, imgSrcGif,imgSrcPng,showpng,showgif,noimage };
   }
 };
 </script>
