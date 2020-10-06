@@ -46,7 +46,7 @@
 import Banditem from "@/components/Banditem.vue";
 
 import { ref, reactive, onBeforeUpdate,watch} from "vue";
-import {getBandsCountry} from "@/BandiApi";
+import { getBandsCountry } from "..bandi_api.ts";
 
 export default {
   components: {
