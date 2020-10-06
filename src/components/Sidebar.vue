@@ -2,7 +2,7 @@
   <div :class="active ? 'endMyLifeActive' : 'endMyLife'">
     <div class="head">
       <a @click="close"><i class="fas fa-times"/></a>
-      <h2>{{country}}</h2>
+      <h2>{{ country }}</h2>
     </div>
     <div class="block">
       <p>Population: {{ population }}</p>
@@ -24,10 +24,20 @@
       </p>
     </div>
     <div class="banditems" v-if="!state.haettu">
-      <Banditem v-for="band in bands" :key="band.id" :band="band" />
+      <Banditem
+        v-for="band in bands"
+        :key="band.id"
+        :band="band"
+        @pass-details="openDetails"
+      />
     </div>
     <div class="banditems" v-if="state.haettu">
-      <Banditem v-for="band in filteredBands" :key="band.id" :band="band" />
+      <Banditem
+        v-for="band in filteredBands"
+        :key="band.id"
+        :band="band"
+        @pass-details="openDetails"
+      />
     </div>
   </div>
 </template>
@@ -41,7 +51,7 @@ export default {
   components: {
     Banditem
   },
-  emits: ["side-active"],
+  emits: ["side-active", "open-details"],
   props: {
     active: {
       type: Boolean
@@ -468,6 +478,7 @@ export default {
         status: "Split-up"
       }
     ];
+
     const filteredBands: {
       id: number;
       link: string;
@@ -476,7 +487,8 @@ export default {
       genre: string;
       status: string;
     }[] = reactive([]);
-    function search() {
+
+    const search = () => {
       state.haettu = searchText.value.length > 0 ? true : false;
       filteredBands.splice(0, filteredBands.length);
       bands.filter(b => {
@@ -485,11 +497,23 @@ export default {
         }
       });
       return filteredBands;
-    }
-    function close() {
-      emit("side-active", EventSource);
-    }
-    return { close, bands, searchText, search, filteredBands, state };
+    };
+
+    const close = () => {
+      emit("side-active");
+    };
+    const openDetails = (x: Record<string, any>) => {
+      emit("open-details", x);
+    };
+    return {
+      close,
+      bands,
+      searchText,
+      search,
+      filteredBands,
+      state,
+      openDetails
+    };
   }
 };
 </script>
@@ -498,7 +522,7 @@ export default {
 .endMyLife {
   position: fixed;
   height: 100vh;
-  width: 20vw;
+  width: 25vw;
   opacity: 0.8;
   top: 0;
   left: 0;
@@ -506,8 +530,8 @@ export default {
   background-color: black;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  -webkit-transform: translateX(-20vw);
-  transform: translateX(-20vw);
+  -webkit-transform: translateX(-25vw);
+  transform: translateX(-25vw);
   overflow: auto;
 }
 .endMyLifeActive {
