@@ -2,7 +2,17 @@ import axios from "axios"
 
 const API_URL = "http://localhost:5000/api";
 
-export async function getBandsByCountry(country: string) {
+// Preview api call for demo purposes
+export async function getPreviewBands(country: string) {
+    try {
+        const response = await axios.get(`${API_URL}/bands/preview/${country}`);
+        return response.data;
+    } catch (error) {
+        return await Promise.reject(error.message);
+    }
+}
+
+export async function getBandsByCountry(country: any) {
     try {
         const response = await axios.get(`${API_URL}/bands/country/${country}`);
         return response.data;
