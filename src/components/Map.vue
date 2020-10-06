@@ -1,7 +1,18 @@
 <template>
   <div>
     <div id="mapid"></div>
-    <Sidebar :active="active" :population="population" :country="country" @side-active="sideActive" />
+    <Sidebar
+      :active="active"
+      :population="population"
+      :country="country"
+      @side-active="sideActive"
+      @open-details="bandDetails"
+    />
+    <Bandinfo
+      :activeModal="activeModal"
+      :band="band"
+      @modal-active="closeModal"
+    />
   </div>
 </template>
 
@@ -12,15 +23,19 @@ import L from "leaflet";
 import borderData from "@/assets/geoLow.json";
 import { ref, onMounted } from "vue";
 import Sidebar from "@/components/Sidebar.vue";
+import Bandinfo from "@/components/Bandinfo.vue";
 import { getTopArtistsByTag } from "../metal_api";
 
 export default {
-  components: { Sidebar },
+  emits: ["details"],
+  components: { Sidebar, Bandinfo },
   setup() {
     const geojson: any = ref(null);
     const mapDiv: any = ref(null);
     const borders: any = ref(borderData); // border data
     const active = ref(false);
+    const band = ref(null);
+    const activeModal = ref(false);
     const population = ref(0);
     const country = ref("");
     const bounds = ref(
@@ -32,7 +47,7 @@ export default {
         fillColor: "#000000", //fill color (obv)
         weight: 1, // border paksuus
         opacity: 1, // border opacity 0-1
-        color: "red", //border fill color
+        color: "green", //border fill color
         dashArray: "", // border viivoja
         fillOpacity: 0.3 // fill opacity (lol) 0-1
       };
@@ -102,16 +117,32 @@ export default {
       }).addTo(mapDiv.value);
     };
 
-    const sideActive = (e: Event) => {
+    const sideActive = () => {
       active.value = false;
-      geojson.value.resetStyle(e.target);
+      geojson.value.resetStyle();
     };
 
+    const bandDetails = (x: any) => {
+      activeModal.value = true;
+      band.value = x;
+    };
+    const closeModal = () => {
+      activeModal.value = false;
+    };
     onMounted(() => {
       initMap();
     });
 
-    return { active, sideActive, population,country };
+    return {
+      active,
+      sideActive,
+      population,
+      country,
+      bandDetails,
+      band,
+      activeModal,
+      closeModal
+    };
   }
 };
 </script>

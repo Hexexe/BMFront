@@ -1,25 +1,38 @@
 <template>
-  <div class="kys">
-    <a class="banditem" @click="openDetails">
-      <div>
-        <img v-if="!showpng" :src="imgSrcJpg" @error="showpng = true" />
-        <img v-if="showpng && !showgif" :src="imgSrcPng" @error="showgif =true" />
-        <img v-if="showgif && !noimage" :src="imgSrcGif" @error="noimage = true" />
-      </div>
-      <div>
-        <h1>{{ band.name }}</h1>
-      </div>
-    </a>
+  <div class="containerlol" @click="sendDetails">
+    <div class="imagecontainer">
+      <img v-if="!showpng" :src="imgSrcJpg" @error="showpng = true" />
+      <img
+        v-if="showpng && !showgif"
+        :src="imgSrcPng"
+        @error="showgif = true"
+      />
+      <img
+        v-if="showgif && !noimage"
+        :src="imgSrcGif"
+        @error="noimage = true"
+      />
+      <img
+        v-if="noimage"
+        :src="
+          'https://www.streamscheme.com/wp-content/uploads/2020/04/feelsbadman.png'
+        "
+      />
+    </div>
+    <div class="textcontainer">
+      <h1>{{ band.name }}</h1>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { reactive,ref } from "vue";
+import { reactive, ref } from "vue";
 //import { onMounted } from "vue";
 
 export default {
   props: ["band"],
-  setup(props: any) {
+  emits: ["pass-details"],
+  setup(props: any, { emit }: any) {
     const eiii = reactive(props.band);
     const showpng = ref(false);
     const showgif = ref(false);
@@ -30,47 +43,56 @@ export default {
     const imgSrcPng = `https://www.metal-archives.com/images/${logo}_logo.png`;
     const imgSrcGif = `https://www.metal-archives.com/images/${logo}_logo.gif`;
 
-    const openDetails = () => {
-      console.log(eiii.link);
-
+    const sendDetails = () => {
+      const x = props.band;
+      emit("pass-details", x);
     };
-    return { openDetails, kys, imgSrcJpg, imgSrcGif,imgSrcPng,showpng,showgif,noimage };
+    return {
+      sendDetails,
+      kys,
+      imgSrcJpg,
+      imgSrcGif,
+      imgSrcPng,
+      showpng,
+      showgif,
+      noimage
+    };
   }
 };
 </script>
 
 <style scoped>
-.kys {
+.containerlol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  width: auto;
+  height: 10vh; /* Tätä voi muokkailla sitte mielensä mukaan vaikka "10 tai 15vh" näyttää auto:llakin ihan jees*/
+  margin-top: 1vh;
   margin-left: 1vw;
   margin-right: 1vw;
-}
-.banditem {
-  display: flex;
-  align-items: center;
-  margin-top: 1vh;
-}
-.banditem > div {
-  flex-basis: 50%;
-}
-h1 {
-  font-size: 20px;
-  width: 10vw;
+  border: solid;
+  border-radius: 2px;
+  cursor: pointer;
+  opacity: 0.5;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
   text-overflow: ellipsis;
-  word-break: normal;
+}
+.containerlol:hover {
+  opacity: 1;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.imagecontainer {
+  display: flex;
+  height: 100%;
   overflow: hidden;
 }
-img {
-  display: flex;
-  max-width: auto;
-  height: auto;
-}
-a {
+
+.textcontainer {
+  font-size: 20px;
   color: white;
-  opacity: 0.5;
-}
-a:hover {
-  color: black;
-  background: white;
-  opacity: 1;
 }
 </style>
