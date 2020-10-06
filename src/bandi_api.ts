@@ -5,6 +5,7 @@ const API_URL = "http://localhost:5000/api";
 // Preview api call for demo purposes
 export async function getPreviewBands(country: string) {
     try {
+        if(country === "Czech Rep.") country = "Czechia";
         const response = await axios.get(`${API_URL}/bands/preview/${country}`);
         return response.data;
     } catch (error) {
