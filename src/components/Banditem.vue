@@ -1,19 +1,8 @@
 <template>
   <div class="containerlol" @click="sendDetails">
     <div class="imagecontainer">
-      <img v-if="!showpng" :src="imgSrcJpg" @error="showpng = true" />
       <img
-        v-if="showpng && !showgif"
-        :src="imgSrcPng"
-        @error="showgif = true"
-      />
-      <img
-        v-if="showgif && !noimage"
-        :src="imgSrcGif"
-        @error="noimage = true"
-      />
-      <img
-        v-if="noimage"
+
         :src="
           'https://www.streamscheme.com/wp-content/uploads/2020/04/feelsbadman.png'
         "
@@ -47,12 +36,14 @@ export default {
       const x = props.band;
       emit("pass-details", x);
     };
+    const getImage = () => {
+
+      console.log("paskaaaaaaaaaaaaaaaaaaaaaaaaa")
+
+    }
     return {
       sendDetails,
       kys,
-      imgSrcJpg,
-      imgSrcGif,
-      imgSrcPng,
       showpng,
       showgif,
       noimage
