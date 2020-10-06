@@ -46,7 +46,7 @@
 import Banditem from "@/components/Banditem.vue";
 
 import { ref, reactive, onBeforeUpdate,watch} from "vue";
-import { getBandsCountry } from "..bandi_api.ts";
+import { getBandsByCountry } from "../bandi_api";
 
 export default {
   components: {
@@ -81,7 +81,7 @@ export default {
     }[] = reactive([]);
     watch(()=> props.country,(value, oldValue) => {
       bandTest.splice(0, bandTest.length);
-      getBandsCountry(value).then(data =>{
+      getBandsByCountry(value).then(data =>{
         for(const band of data){
           bandTest.push(band)
         }
