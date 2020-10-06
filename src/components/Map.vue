@@ -77,6 +77,7 @@ export default {
       active.value = true;
       population.value = e.target.feature.properties.pop_est;
       country.value = e.target.feature.properties.name;
+
       const layer = e.target;
       layer.setStyle({
         fillColor: "#ffffff",
