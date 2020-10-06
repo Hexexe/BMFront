@@ -45,31 +45,30 @@
 <script lang="ts">
 import Banditem from "@/components/Banditem.vue";
 
-import { ref, reactive, onBeforeUpdate,watch} from "vue";
-import { getBandsByCountry } from "../bandi_api";
+import { ref, reactive, onBeforeUpdate, watch } from "vue";
+import { getPreviewBands } from "../bandi_api";
 
 export default {
   components: {
-    Banditem
+    Banditem,
   },
   emits: ["side-active", "open-details"],
   props: {
     active: {
-      type: Boolean
+      type: Boolean,
     },
     population: {
-      type: Number
+      type: Number,
     },
     country: {
-      type: String
-    }
+      type: String,
+    },
   },
-
 
   setup(props: any, { emit }: any) {
     const searchText = ref("");
     const state = reactive({
-      haettu: false
+      haettu: false,
     });
     const bandTest: {
       id: number;
@@ -79,15 +78,19 @@ export default {
       genre: string;
       status: string;
     }[] = reactive([]);
-    watch(()=> props.country,(value, oldValue) => {
-      bandTest.splice(0, bandTest.length);
-      getBandsByCountry(value).then(data =>{
-        for(const band of data){
-          bandTest.push(band)
-        }
-
-      }).catch(err => console.log(err.message))
-    })
+    watch(
+      () => props.country,
+      (value, oldValue) => {
+        bandTest.splice(0, bandTest.length);
+        getPreviewBands(value)
+          .then(data => {
+            for (const band of data) {
+              bandTest.push(band);
+            }
+          })
+          .catch((err) => console.log(err.message));
+      }
+    );
     const filteredBands: {
       id: number;
       link: string;
@@ -100,7 +103,7 @@ export default {
     const search = () => {
       state.haettu = searchText.value.length > 0 ? true : false;
       filteredBands.splice(0, filteredBands.length);
-      bandTest.filter(b => {
+      bandTest.filter((b) => {
         if (b.name.toLowerCase().match(searchText.value.toLowerCase())) {
           filteredBands.push(b);
         }
@@ -121,9 +124,9 @@ export default {
       filteredBands,
       state,
       openDetails,
-      bandTest
+      bandTest,
     };
-  }
+  },
 };
 </script>
 

@@ -1,24 +1,5 @@
 <template>
   <div class="containerlol" @click="sendDetails">
-    <div class="imagecontainer">
-      <img v-if="!showpng" :src="imgSrcJpg" @error="showpng = true" />
-      <img
-        v-if="showpng && !showgif"
-        :src="imgSrcPng"
-        @error="showgif = true"
-      />
-      <img
-        v-if="showgif && !noimage"
-        :src="imgSrcGif"
-        @error="noimage = true"
-      />
-      <img
-        v-if="noimage"
-        :src="
-          'https://www.streamscheme.com/wp-content/uploads/2020/04/feelsbadman.png'
-        "
-      />
-    </div>
     <div class="textcontainer">
       <h1>{{ band.name }}</h1>
     </div>
