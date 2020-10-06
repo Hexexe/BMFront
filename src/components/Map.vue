@@ -71,7 +71,6 @@ export default {
 
     const zoomToFeature = (e: any) => {
       //const countryCode = e.target.feature.properties.iso_a2;
-      getTopArtistsByTag("metalcore");
       geojson.value.resetStyle();
       mapDiv.value.fitBounds(e.target.getBounds());
       active.value = true;
