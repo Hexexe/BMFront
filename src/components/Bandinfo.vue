@@ -16,8 +16,10 @@
       </div>
       <div class="rightC">
         <div v-if="band" class="logo">
-          <img v-if="imgLink" :src="imgLink" />
-          <div v-if="imgLink === ''" class="loader">Loading...</div>
+          <div v-if="loading" class="loader">
+            Loading...
+          </div>
+          <img v-if="imgLink !== null" :src="imgLink" @load="test" />
         </div>
       </div>
     </div>
@@ -25,13 +27,14 @@
 </template>
 
 <script lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, reactive } from "vue";
 import { yoinkImages } from "../bandi_api";
 export default {
   props: ["band", "activeModal"],
   emits: ["modal-active"],
   setup(props: any, { emit }: any) {
-    const imgLink = ref("");
+    const imgLink = ref(null);
+    const loading = ref(false);
     const getImage = () => {
       const kys = props.band.link.match(/\d+$/).toString();
       const logo = [...kys].splice(0, 4).join("/") + "/" + kys;
@@ -45,16 +48,21 @@ export default {
     watch(
       () => (props.activeModal, props.band),
       value => {
-        imgLink.value = "";
         if (value) {
+          imgLink.value = null;
           getImage().then(d => (imgLink.value = d));
+          loading.value = true;
         }
       }
     );
     const close = () => {
       emit("modal-active");
     };
-    return { close, getImage, imgLink };
+    const test = () => {
+      console.log("done");
+      loading.value = false;
+    };
+    return { close, getImage, imgLink, test, loading };
   }
 };
 </script>
