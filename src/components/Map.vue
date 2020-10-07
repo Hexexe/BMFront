@@ -72,7 +72,7 @@ export default {
     const zoomToFeature = (e: any) => {
       //const countryCode = e.target.feature.properties.iso_a2;
       geojson.value.resetStyle();
-      mapDiv.value.fitBounds(e.target.getBounds());
+      //mapDiv.value.fitBounds(e.target.getBounds());
       active.value = true;
       population.value = e.target.feature.properties.pop_est;
       country.value = e.target.feature.properties.name;
