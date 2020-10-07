@@ -1,13 +1,5 @@
 <template>
   <div class="containerlol" @click="sendDetails">
-    <div class="imagecontainer">
-      <img
-
-        :src="
-          'https://www.streamscheme.com/wp-content/uploads/2020/04/feelsbadman.png'
-        "
-      />
-    </div>
     <div class="textcontainer">
       <h1>{{ band.name }}</h1>
     </div>
@@ -15,38 +7,16 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref } from "vue";
-//import { onMounted } from "vue";
-
 export default {
   props: ["band"],
   emits: ["pass-details"],
   setup(props: any, { emit }: any) {
-    const eiii = reactive(props.band);
-    const showpng = ref(false);
-    const showgif = ref(false);
-    const noimage = ref(false);
-    const kys = eiii.link.match(/\d+$/).toString();
-    const logo = [...kys].splice(0, 4).join("/") + "/" + kys;
-    const imgSrcJpg = `https://www.metal-archives.com/images/${logo}_logo.jpg`;
-    const imgSrcPng = `https://www.metal-archives.com/images/${logo}_logo.png`;
-    const imgSrcGif = `https://www.metal-archives.com/images/${logo}_logo.gif`;
-
     const sendDetails = () => {
       const x = props.band;
       emit("pass-details", x);
     };
-    const getImage = () => {
-
-      console.log("paskaaaaaaaaaaaaaaaaaaaaaaaaa")
-
-    }
     return {
-      sendDetails,
-      kys,
-      showpng,
-      showgif,
-      noimage
+      sendDetails
     };
   }
 };
@@ -59,7 +29,7 @@ export default {
   align-items: center;
   align-content: center;
   width: auto;
-  height: 10vh; /* Tätä voi muokkailla sitte mielensä mukaan vaikka "10 tai 15vh" näyttää auto:llakin ihan jees*/
+  height: auto; /* Tätä voi muokkailla sitte mielensä mukaan vaikka "10 tai 15vh" näyttää auto:llakin ihan jees*/
   margin-top: 1vh;
   margin-left: 1vw;
   margin-right: 1vw;

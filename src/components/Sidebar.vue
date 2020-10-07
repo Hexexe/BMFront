@@ -45,8 +45,8 @@
 <script lang="ts">
 import Banditem from "@/components/Banditem.vue";
 
-import { ref, reactive, onBeforeUpdate,watch} from "vue";
-import { getBandsByCountry } from "../bandi_api";
+import { ref, reactive, onBeforeUpdate, watch } from "vue";
+import { getPreviewBands } from "../bandi_api";
 
 export default {
   components: {
@@ -65,7 +65,6 @@ export default {
     }
   },
 
-
   setup(props: any, { emit }: any) {
     const searchText = ref("");
     const state = reactive({
@@ -79,15 +78,21 @@ export default {
       genre: string;
       status: string;
     }[] = reactive([]);
-    watch(()=> props.country,(value, oldValue) => {
-      bandTest.splice(0, bandTest.length);
-      getBandsByCountry(value).then(data =>{
-        for(const band of data){
-          bandTest.push(band)
-        }
-
-      }).catch(err => console.log(err.message))
-    })
+    watch(
+      () => props.country,
+      (value, oldValue) => {
+        bandTest.splice(0, bandTest.length);
+        state.haettu = false;
+        searchText.value = "";
+        getPreviewBands(value)
+          .then(data => {
+            for (const band of data) {
+              bandTest.push(band);
+            }
+          })
+          .catch(err => console.log(err.message));
+      }
+    );
     const filteredBands: {
       id: number;
       link: string;
