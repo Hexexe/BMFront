@@ -24,7 +24,7 @@ import borderData from "@/assets/geoLow.json";
 import { ref, onMounted } from "vue";
 import Sidebar from "@/components/Sidebar.vue";
 import Bandinfo from "@/components/Bandinfo.vue";
-import { getTopArtistsByTag } from "../metal_api";
+import { getTopArtistsByTag } from "../controllers/lastFMController";
 
 export default {
   emits: ["details"],
