@@ -2,7 +2,7 @@
   <div :class="activeModal ? 'bandinfoActive' : 'bandinfoDeactive'">
     <div class="x">
       <h1 v-if="band">{{ band.name }}</h1>
-      <a @click="close"><i class="fas fa-times " /> </a>
+      <a @click="close"><i>X</i> </a>
     </div>
     <div class="containerlol" v-if="band">
       <div class="leftC">
