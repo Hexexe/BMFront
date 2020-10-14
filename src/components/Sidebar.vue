@@ -6,7 +6,7 @@
     </div>
     <div class="block">
       <p>Population: {{ population }}</p>
-      <p>Another fun fact: No fun allowed</p>
+      <p>Number of bands: {{ bandTest.length }}</p>
       <p>Final fun fact: https://youtu.be/wHrAwtMjTTk?t=105</p>
     </div>
     <div class="search">
@@ -46,7 +46,7 @@
 import Banditem from "@/components/Banditem.vue";
 
 import { ref, reactive, onBeforeUpdate, watch } from "vue";
-import { getPreviewBands } from "../bandi_api";
+import { getBandsByCountry, getPreviewBands } from "../bandi_api";
 
 export default {
   components: {
@@ -84,7 +84,7 @@ export default {
         bandTest.splice(0, bandTest.length);
         state.haettu = false;
         searchText.value = "";
-        getPreviewBands(value)
+        getBandsByCountry(value)
           .then(data => {
             for (const band of data) {
               bandTest.push(band);
