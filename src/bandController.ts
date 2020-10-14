@@ -35,8 +35,9 @@ export async function yoinkImages(links: any) {
     : "https://tutaki.org.nz/wp-content/uploads/2019/04/no-image-1.png";
 }
 
-export async function getBandsByCountry(country: any) {
+export async function getBandsByCountry(country: string) {
   try {
+    if (country === "Czech Rep.") country = "Czechia";
     const response = await axios.get(`${API_URL}/bands/country/${country}`);
     return response.data;
   } catch (error) {
@@ -61,6 +62,7 @@ export async function getBandsByCountryAndStatus(
   status: string,
 ) {
   try {
+    if (country === "Czech Rep.") country = "Czechia";
     const response = await axios.get(
       `${API_URL}/bands/country/${country}/status/${status}`,
     );
@@ -71,6 +73,7 @@ export async function getBandsByCountryAndStatus(
 }
 export async function getBandsByCountryAndName(country: string, name: string) {
   try {
+    if (country === "Czech Rep.") country = "Czechia";
     const response = await axios.get(
       `${API_URL}/bands/country/${country}/${name}`,
     );

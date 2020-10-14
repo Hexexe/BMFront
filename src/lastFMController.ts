@@ -1,7 +1,5 @@
 import axios from "axios"
 
-const API_URL = "https://api.metal-map.com/v1";
-
 // Last.fm api key
 const API_KEY = process.env.LASTFM_API_KEY;
 const LAST_FM_URL = "http://ws.audioscrobbler.com/2.0";
