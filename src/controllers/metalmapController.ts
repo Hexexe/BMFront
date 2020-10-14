@@ -1,9 +1,13 @@
 import axios from "axios";
 
+/**
+ * This is the controller file for the internal api used by metal-map.com
+ * This api is currently not used in our application
+ */
+
 // metal-map.com api url
 const API_URL = "https://api.metal-map.com/v1";
 
-// EI TOIMI KOSKA CORS ;--DDDDDDDD (╯°□°）╯︵ ┻━┻)  ☜(ﾟヮﾟ☜)
 // Get bands by country e.g. Finland = FI
 export async function getBands(countryCode: string) {
     try {
@@ -35,7 +39,7 @@ export async function getSearch(bandName: string) {
   }
 
   // Get top lists
-  export async function getTopLists() {
+export async function getTopLists() {
     try {
       const response = await axios.get(`${API_URL}/top`);
       return response.data;
