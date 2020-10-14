@@ -32,7 +32,7 @@ export async function yoinkImages(links: any) {
   }
   return res !== null
     ? res
-    : "https://tutaki.org.nz/wp-content/uploads/2019/04/no-image-1.png";
+    : require("@/assets/no-image-1.png");
 }
 
 export async function getBandsByCountry(country: string) {
