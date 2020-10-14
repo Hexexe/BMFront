@@ -59,7 +59,6 @@ export default {
       emit("modal-active");
     };
     const test = () => {
-      console.log("done");
       loading.value = false;
     };
     return { close, getImage, imgLink, test, loading };
