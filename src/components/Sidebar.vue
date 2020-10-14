@@ -1,7 +1,7 @@
 <template>
   <div :class="active ? 'endMyLifeActive' : 'endMyLife'">
     <div class="head">
-      <a @click="close"><i class="fas fa-times"/></a>
+      <a @click="close"><i>X</i></a>
       <h2>{{ country }}</h2>
     </div>
     <div class="block">
