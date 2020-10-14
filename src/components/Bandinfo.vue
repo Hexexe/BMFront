@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { ref, watch, reactive } from "vue";
-import { yoinkImages } from "../bandi_api";
+import { yoinkImages } from "../controllers/bandController";
 export default {
   props: ["band", "activeModal"],
   emits: ["modal-active"],
