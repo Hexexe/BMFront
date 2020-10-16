@@ -140,6 +140,10 @@ export default {
   height: 100%;
   overflow: hidden;
 }
+.logo > img {
+  width: auto;
+  max-height: 150px;
+}
 .bandinfoActive {
   z-index: 2;
   position: fixed;
