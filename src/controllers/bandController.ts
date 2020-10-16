@@ -14,27 +14,6 @@ export async function getPreviewBands(country: string) {
   }
 }
 
-// ghetto tier dogshit setup dont do this
-export async function yoinkImages(links: any) {
-  let res = null;
-  for (let i = 0; i < links.length; i++) {
-    try {
-      const response = await axios.get(PROXY + links[i]);
-      if (response.status === 404) {
-        continue;
-      } else {
-        res = links[i];
-        break;
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
-  return res !== null
-    ? res
-    : require("@/assets/no-image-1.png");
-}
-
 export async function getBandsByCountry(country: string) {
   try {
     if (country === "Czech Rep.") country = "Czechia";
