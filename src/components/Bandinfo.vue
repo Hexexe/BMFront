@@ -8,8 +8,9 @@
       <div class="leftC">
         <h1>Genre: {{ band.genre }}</h1>
         <h1>Status: {{ band.status }}</h1>
-        <h1>Formed:{{ formed }}</h1>
-        <h1>Years Active:{{ yearsA }}</h1>
+        <h1>Formed: {{ formed }}</h1>
+        <h1>Years Active: {{ yearsA }}</h1>
+        <h1>Location: {{ location }}</h1>
         <h1>Country: {{ band.country }}</h1>
         <h1>
           Link:
@@ -38,9 +39,9 @@ export default {
   setup(props: any, { emit }: any) {
     const imgLogo: any = ref(null);
     const imgPhoto: any = ref(null);
-    const data = ref(null);
     const formed: any = ref(null);
     const yearsA: any = ref(null);
+    const location: any = ref(null);
     const loading = ref(false);
 
     const getData = async () => {
@@ -64,6 +65,7 @@ export default {
               : (imgPhoto.value = require("@/assets/no-image-1.png"));
             formed.value !== undefined ? (formed.value = d.formYear) : null;
             yearsA.value !== undefined ? (yearsA.value = d.yearsActive) : null;
+            location.value !== undefined ? (location.value = d.location) : null;
           });
           loading.value = true;
         }
@@ -83,7 +85,8 @@ export default {
       test,
       loading,
       formed,
-      yearsA
+      yearsA,
+      location
     };
   }
 };
