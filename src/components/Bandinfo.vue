@@ -27,8 +27,9 @@
         </div>
       </div>
     </div>
-    <div>
-      <p>Nope</p>
+    <div class="discography">
+      <h1>Discography:</h1>
+      <div v-html="disco" />
     </div>
   </div>
 </template>
@@ -45,6 +46,7 @@ export default {
     const formed: any = ref(null);
     const yearsA: any = ref(null);
     const location: any = ref(null);
+    const disco: any = ref(null);
     const loading = ref(false);
 
     const getData = async () => {
@@ -59,6 +61,10 @@ export default {
         if (value) {
           imgLogo.value = null;
           imgPhoto.value = null;
+          formed.value = null;
+          yearsA.value = null;
+          location.value = null;
+          disco.value = null;
           getData().then(d => {
             d.logo !== undefined
               ? (imgLogo.value = d.logo)
@@ -66,9 +72,10 @@ export default {
             d.photo !== undefined
               ? (imgPhoto.value = d.photo)
               : (imgPhoto.value = require("@/assets/no-image-1.png"));
-            formed.value !== undefined ? (formed.value = d.formYear) : null;
-            yearsA.value !== undefined ? (yearsA.value = d.yearsActive) : null;
-            location.value !== undefined ? (location.value = d.location) : null;
+            d.formYear !== undefined ? (formed.value = d.formYear) : null;
+            d.yearsActive !== undefined ? (yearsA.value = d.yearsActive) : null;
+            d.location !== undefined ? (location.value = d.location) : null;
+            d.disco !== undefined ? (disco.value = d.disco) : null;
           });
           loading.value = true;
         }
@@ -89,7 +96,8 @@ export default {
       loading,
       formed,
       yearsA,
-      location
+      location,
+      disco
     };
   }
 };
@@ -150,6 +158,16 @@ export default {
   width: auto;
   max-height: 150px;
 }
+.discography {
+  overflow: auto;
+  max-height: 200px;
+  color: gray;
+  border: solid;
+}
+.discography > h1 {
+  font-size: 20px;
+}
+
 .bandinfoActive {
   z-index: 2;
   position: fixed;
