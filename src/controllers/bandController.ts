@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:5000/api";
-const PROXY = "https://cors-anywhere.herokuapp.com/";
 
 // Preview api call for demo purposes
 export async function getPreviewBands(country: string) {
