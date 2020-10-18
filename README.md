@@ -1,4 +1,12 @@
 # BMFront
+### Black Metal World Map Vue 3 application
+
+Navigate the world map and search for metal bands in any country.
+
+Currently features over 140000 metal bands around the world.
+
+## Used in conjunction with the BMBackend server app:
+https://github.com/antonwis/BMBackend
 
 ## Project setup
 ```
@@ -19,6 +27,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
