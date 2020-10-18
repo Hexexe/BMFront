@@ -29,7 +29,35 @@
     </div>
     <div class="discography">
       <h1>Discography:</h1>
-      <div v-html="disco" />
+      <table
+        width="100%"
+        cellpadding="0"
+        cellspacing="0"
+        class="display discog"
+      >
+        <thead>
+          <tr>
+            <th class="releaseCol">Name</th>
+            <th class="typeCol">Type</th>
+            <th class="yearCol">Year</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="album in albums" :key="album.index">
+            <td>
+              <a :href="album.link" target="_blank">
+                {{ album.name }}
+              </a>
+            </td>
+            <td>
+              {{ album.type }}
+            </td>
+            <td>
+              {{ album.year }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -44,10 +72,10 @@ export default {
     const imgLogo: any = ref(null);
     const imgPhoto: any = ref(null);
     const formed: any = ref(null);
-    const yearsA: any = ref(null);
-    const location: any = ref(null);
-    const disco: any = ref(null);
+    const yearsA = ref(null);
+    const location = ref(null);
     const loading = ref(false);
+    const albums: any = ref([]);
 
     const getData = async () => {
       const kys = props.band.link;
@@ -64,7 +92,7 @@ export default {
           formed.value = null;
           yearsA.value = null;
           location.value = null;
-          disco.value = null;
+          albums.value = null;
           getData().then(d => {
             d.logo !== undefined
               ? (imgLogo.value = d.logo)
@@ -75,7 +103,7 @@ export default {
             d.formYear !== undefined ? (formed.value = d.formYear) : null;
             d.yearsActive !== undefined ? (yearsA.value = d.yearsActive) : null;
             d.location !== undefined ? (location.value = d.location) : null;
-            d.disco !== undefined ? (disco.value = d.disco) : null;
+            d.albums !== undefined ? (albums.value = d.albums) : null;
           });
           loading.value = true;
         }
@@ -97,7 +125,7 @@ export default {
       formed,
       yearsA,
       location,
-      disco
+      albums
     };
   }
 };
@@ -171,7 +199,7 @@ export default {
 .bandinfoActive {
   z-index: 2;
   position: fixed;
-  top: 30%;
+  top: 15%;
   right: 45vw;
   left: 35vw;
   width: 35%;
@@ -193,10 +221,10 @@ export default {
   height: auto;
   background: black;
   opacity: 0.9;
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-  -webkit-transform: translateY(-70vw);
-  transform: translateY(-70vw);
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+  -webkit-transform: translateY(-150vh);
+  transform: translateY(-150vh);
 }
 
 .loader {
