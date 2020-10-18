@@ -6,51 +6,77 @@
     </div>
     <div class="containerlol" v-if="band">
       <div class="leftC">
-        <h1>Country: {{ band.country }}</h1>
         <h1>Genre: {{ band.genre }}</h1>
+        <h1>Status: {{ band.status }}</h1>
+        <h1>Formed: {{ formed }}</h1>
+        <h1>Years Active: {{ yearsA }}</h1>
+        <h1>Location: {{ location }}</h1>
+        <h1>Country: {{ band.country }}</h1>
         <h1>
           Link:
           <a :href="band.link" target="_blank">here </a>
         </h1>
-        <h1>Status: {{ band.status }}</h1>
       </div>
       <div class="rightC">
         <div v-if="band" class="logo">
           <div v-if="loading" class="loader">
             Loading...
           </div>
-          <img v-if="imgLink !== null" :src="imgLink" @load="test" />
+          <img v-if="imgLogo !== null" :src="imgLogo" @load="test" />
+          <img v-if="imgPhoto !== null" :src="imgPhoto" @load="test" />
         </div>
       </div>
+    </div>
+    <div class="discography">
+      <h1>Discography:</h1>
+      <div v-html="disco" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, watch, reactive } from "vue";
-import { yoinkImages } from "../controllers/bandController";
+import { ref, watch } from "vue";
+import { yoinkData } from "../controllers/dataController";
 export default {
   props: ["band", "activeModal"],
   emits: ["modal-active"],
   setup(props: any, { emit }: any) {
-    const imgLink = ref(null);
+    const imgLogo: any = ref(null);
+    const imgPhoto: any = ref(null);
+    const formed: any = ref(null);
+    const yearsA: any = ref(null);
+    const location: any = ref(null);
+    const disco: any = ref(null);
     const loading = ref(false);
-    const getImage = () => {
-      const kys = props.band.link.match(/\d+$/).toString();
-      const logo = [...kys].splice(0, 4).join("/") + "/" + kys;
-      const url = [
-        `https://www.metal-archives.com/images/${logo}_logo.jpg`,
-        `https://www.metal-archives.com/images/${logo}_logo.png`,
-        `https://www.metal-archives.com/images/${logo}_logo.gif`
-      ];
-      return yoinkImages(url);
+
+    const getData = async () => {
+      const kys = props.band.link;
+      const values = await yoinkData(kys);
+      return values;
     };
+
     watch(
       () => (props.activeModal, props.band),
       value => {
         if (value) {
-          imgLink.value = null;
-          getImage().then(d => (imgLink.value = d));
+          imgLogo.value = null;
+          imgPhoto.value = null;
+          formed.value = null;
+          yearsA.value = null;
+          location.value = null;
+          disco.value = null;
+          getData().then(d => {
+            d.logo !== undefined
+              ? (imgLogo.value = d.logo)
+              : (imgLogo.value = require("@/assets/no-image-1.png"));
+            d.photo !== undefined
+              ? (imgPhoto.value = d.photo)
+              : (imgPhoto.value = require("@/assets/no-image-1.png"));
+            d.formYear !== undefined ? (formed.value = d.formYear) : null;
+            d.yearsActive !== undefined ? (yearsA.value = d.yearsActive) : null;
+            d.location !== undefined ? (location.value = d.location) : null;
+            d.disco !== undefined ? (disco.value = d.disco) : null;
+          });
           loading.value = true;
         }
       }
@@ -61,7 +87,18 @@ export default {
     const test = () => {
       loading.value = false;
     };
-    return { close, getImage, imgLink, test, loading };
+    return {
+      close,
+      getData,
+      imgLogo,
+      imgPhoto,
+      test,
+      loading,
+      formed,
+      yearsA,
+      location,
+      disco
+    };
   }
 };
 </script>
@@ -113,9 +150,24 @@ export default {
 }
 .logo {
   display: flex;
+  flex-direction: column;
   height: 100%;
   overflow: hidden;
 }
+.logo > img {
+  width: auto;
+  max-height: 150px;
+}
+.discography {
+  overflow: auto;
+  max-height: 200px;
+  color: gray;
+  border: solid;
+}
+.discography > h1 {
+  font-size: 20px;
+}
+
 .bandinfoActive {
   z-index: 2;
   position: fixed;
