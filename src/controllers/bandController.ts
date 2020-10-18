@@ -6,9 +6,12 @@ import axios from "axios";
 
  // Back-end url
 const API_URL = "http://localhost:5000/api";
+<<<<<<< HEAD
 
 // CORS proxy for image fetching
 const PROXY = "https://cors-anywhere.herokuapp.com/";
+=======
+>>>>>>> experimental
 
 /**
  * Gets a preview list of bands in the specified country. This was used in the demo. It retrieves all bands in "Black" genre.
@@ -24,6 +27,7 @@ export async function getPreviewBands(country: string) {
   }
 }
 
+<<<<<<< HEAD
 // Metal-archives.com uses a logical routing system for displaying the band logos, but the filetype varies. This function attempts to get all possible choices.
 export async function yoinkImages(links: any) {
   let res = null;
@@ -49,6 +53,8 @@ export async function yoinkImages(links: any) {
  * Gets all bands in a specified country
  * @param country name of country e.g. Finland
  */
+=======
+>>>>>>> experimental
 export async function getBandsByCountry(country: string) {
   try {
     if (country === "Czech Rep.") country = "Czechia";

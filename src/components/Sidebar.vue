@@ -5,9 +5,10 @@
       <h2>{{ country }}</h2>
     </div>
     <div class="block">
-      <p>Population: {{ population }}</p>
-      <p>Number of bands: {{ bandTest.length }}</p>
-      <p>Final fun fact: https://youtu.be/wHrAwtMjTTk?t=105</p>
+      <p>
+        Number of bands:
+        {{ bandTest.length }}
+      </p>
     </div>
     <div class="search">
       <p class="control has-icons-left">
@@ -45,8 +46,11 @@
 <script lang="ts">
 import Banditem from "@/components/Banditem.vue";
 
-import { ref, reactive, onBeforeUpdate, watch } from "vue";
-import { getBandsByCountry, getPreviewBands } from "../controllers/bandController";
+import { ref, reactive, watch } from "vue";
+import {
+  getBandsByCountry,
+  getPreviewBands
+} from "../controllers/bandController";
 
 export default {
   components: {
