@@ -13,8 +13,8 @@
         <h1>Location: {{ location }}</h1>
         <h1>Country: {{ band.country }}</h1>
         <h1>
-          Link:
-          <a :href="band.link" target="_blank">here </a>
+          View on:
+          <a :href="band.link" target="_blank">Metal-archives</a>
         </h1>
       </div>
       <div class="rightC">
