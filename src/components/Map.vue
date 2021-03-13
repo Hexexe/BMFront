@@ -24,7 +24,6 @@ import borderData from "@/assets/geoLow.json";
 import { ref, onMounted } from "vue";
 import Sidebar from "@/components/Sidebar.vue";
 import Bandinfo from "@/components/Bandinfo.vue";
-import { getTopArtistsByTag } from "../controllers/lastFMController";
 
 export default {
   emits: ["details"],
@@ -49,7 +48,7 @@ export default {
         opacity: 1, // border opacity 0-1
         color: "green", //border fill color
         dashArray: "", // border viivoja
-        fillOpacity: 0.3 // fill opacity (lol) 0-1
+        fillOpacity: 0.3, // fill opacity (lol) 0-1
       };
     };
 
@@ -60,7 +59,7 @@ export default {
             fillColor: "#ffffff", //fill color (obv)
             color: "#ffffff",
             dashArray: "",
-            fillOpacity: 0.15
+            fillOpacity: 0.15,
           })
         : null;
     };
@@ -82,7 +81,7 @@ export default {
         fillColor: "#ffffff",
         color: "#ffffff",
         dashArray: "",
-        fillOpacity: 0.25
+        fillOpacity: 0.25,
       });
     };
 
@@ -91,7 +90,7 @@ export default {
       layer.on({
         mouseover: highlightFeature, //Interaction events
         mouseout: resetHighlight,
-        click: zoomToFeature
+        click: zoomToFeature,
       });
     };
 
@@ -99,7 +98,7 @@ export default {
       mapDiv.value = L.map("mapid", {
         maxBounds: bounds.value,
         maxBoundsViscosity: 1.0,
-        zoomControl: false
+        zoomControl: false,
       }).setView(L.latLng(60.15568, 24.95535), 8);
       L.control.zoom({ position: "bottomright" }).addTo(mapDiv.value);
       L.tileLayer(
@@ -108,12 +107,12 @@ export default {
           attribution:
             "&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors", // credits
           maxZoom: 13, // kuinka lähelle voi zoom
-          minZoom: 3 // kuinka kauas voi zoom out
+          minZoom: 3, // kuinka kauas voi zoom out
         }
       ).addTo(mapDiv.value);
       geojson.value = L.geoJSON(borders.value, {
         style: setStyle, // stylet
-        onEachFeature: onEachFeature // kutsutaan joka featuressa (lisää listeners ja muita memes)
+        onEachFeature: onEachFeature, // kutsutaan joka featuressa (lisää listeners ja muita memes)
       }).addTo(mapDiv.value);
     };
 
@@ -141,9 +140,9 @@ export default {
       bandDetails,
       band,
       activeModal,
-      closeModal
+      closeModal,
     };
-  }
+  },
 };
 </script>
 
