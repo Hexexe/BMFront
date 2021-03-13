@@ -19,9 +19,7 @@
       </div>
       <div class="rightC">
         <div v-if="band" class="logo">
-          <div v-if="loading" class="loader">
-            Loading...
-          </div>
+          <div v-if="loading" class="loader">Loading...</div>
           <img v-if="imgLogo !== null" :src="imgLogo" @load="test" />
           <img v-if="imgPhoto !== null" :src="imgPhoto" @load="test" />
         </div>
@@ -85,7 +83,7 @@ export default {
 
     watch(
       () => (props.activeModal, props.band),
-      value => {
+      (value) => {
         if (value) {
           imgLogo.value = null;
           imgPhoto.value = null;
@@ -93,7 +91,7 @@ export default {
           yearsA.value = null;
           location.value = null;
           albums.value = null;
-          getData().then(d => {
+          getData().then((d) => {
             d.logo !== undefined
               ? (imgLogo.value = d.logo)
               : (imgLogo.value = require("@/assets/no-image-1.png"));
@@ -125,9 +123,9 @@ export default {
       formed,
       yearsA,
       location,
-      albums
+      albums,
     };
-  }
+  },
 };
 </script>
 
