@@ -1,8 +1,5 @@
 import axios from "axios";
 
-// vippaa tää backend
-import cheerio from 'cheerio'
-
 const API_URL = "http://localhost:5000/api";
 
 export async function yoinkData(link:any) {
